@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+        1、js中用来存储待执行回调函数的队列包括2个不同特定的队列
+        2、宏队列：定时器回调、DOM事件回调、ajax回调
+        3、微队列：promise回调、MutationObserver回调
+        4、js执行的时候区别两个队列
+            a、js引擎首先必须先执行所有的初始化同步任务代码
+            b、每次准备取出第一个宏任务执行之前，都要将所有的微任务一个一个取出来执行
+        */
+        setTimeout(() => { //立即放入宏队列中
+            console.log('timeout callback1()');
+            Promise.resolve(3).then( //会立即放入微队列
+                value => {
+                    console.log('Promise onResolved3()', value);
+                }
+            )
+        }, 0);
+        setTimeout(() => { //立即放入宏队列中
+            console.log('timeout callback2()');
+        }, 0);
+
+
+        Promise.resolve(1).then( //会立即放入微队列
+            value => {
+                console.log('Promise onResolved1()', value);
+            }
+        )
+        Promise.resolve(2).then( //会立即放入微队列
+            value => {
+                console.log('Promise onResolved2()', value);
+            }
+        )
+    </script>
+</body>
+
+</html>

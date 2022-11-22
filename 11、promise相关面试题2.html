@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        setTimeout(() => {
+            console.log(1);
+        }, 0);
+        new Promise((resolve) => {
+            console.log(2);  //同步执行
+            resolve()
+        }).then(() => {
+            console.log(3);
+        }).then(() => {
+            console.log(4);
+        })
+        console.log(5);
+
+        //2 5 3 4 1
+
+        /*
+        宏:[1 ]
+        微: [3] 3执行 完后 放入[4] 在执行4
+        同步执行：2 5  
+        */
+    </script>
+</body>
+
+</html>

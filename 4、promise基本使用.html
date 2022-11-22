@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //1、创建一个基本promise
+        const p = new Promise((resolve, reject) => { //执行器函数   同步回调
+            console.log('执行执行器');
+            //2、执行异步任务
+            setTimeout(function () {//如果当前时间是偶数则成功
+                let time = Date.now()
+                if (time % 2 === 0) {
+                    //3.1、如果成功调用resolve(value)
+                    console.log('成功的数据 time=', time);
+                } else {
+                    //3.2、如果失败调用reject(reason)
+                    console.log('失败的数据 time=', time);
+                }
+
+            }, 1000)
+        })
+        console.log('new Promse()之后');
+        p.then(
+            value => {//接受得到成功的value数据  onResolved
+                resolve('成功的回调', value)
+            },
+            reason => {//接受得到失败的reason数据 onRejected
+                reject('失败的回调', reject)
+            }
+        )
+
+    </script>
+</body>
+
+</html>
